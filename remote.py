@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 Created on Dec 29, 2014
 
@@ -15,7 +17,7 @@ def myRawDeviceEvent(data, controllerId, callbackId):
     fh = open("/tmp/remote.txt","a")
     fh.writelines(data)
     fh.close()
-
+#16080458
 
 def evaluate(data):
     on = None
@@ -23,7 +25,8 @@ def evaluate(data):
     button = None
 
     for i in range(1,5):
-        commandstring = 'class:command;protocol:arctech;model:selflearning;house:14660198;unit:'+str(i)+';group:0;method:'
+        commandstring = 'class:command;protocol:arctech;model:selflearning;house:16080458;unit:'+str(i)+';group:0;method:'
+#14660198
         print commandstring
         if commandstring in data:
             button = i
@@ -31,37 +34,42 @@ def evaluate(data):
                 on = True
             elif 'method:turnoff' in data:
                 off = True
+            fh = open("/tmp/remote.txt","a")
+            fh.writelines(commandstring)
+            fh.close()
 
     if on and button == 1:
         time.sleep(0.5)
         td.turnOn(1)
+        td.turnOn(2)
         td.turnOn(3)
         td.turnOn(4)
         td.turnOn(5)
-        td.turnOn(6)
+        #td.turnOn(6)
     elif off and button == 1:
         time.sleep(0.5)
         td.turnOff(1)
+        td.turnOff(2)
         td.turnOff(3)
         td.turnOff(4)
         td.turnOff(5)
-        td.turnOff(6)
+        #td.turnOff(6)
     elif on and button == 2:
         time.sleep(0.5)
-        td.turnOn(3)
-        td.turnOn(4)
+        td.turnOn(1)
+        #td.turnOn(4)
     elif off and button == 2:
         time.sleep(0.5)
-        td.turnOff(3)
-        td.turnOff(4)
+        td.turnOff(1)
+        #td.turnOff(4)
     elif on and button == 3:
         time.sleep(0.5)
-        td.turnOn(1)
-        td.turnOn(5)
+        td.turnOn(3)
+        #td.turnOn(5)
     elif off and button == 3:
         time.sleep(0.5)
-        td.turnOff(1)
-        td.turnOff(5)
+        td.turnOff(3)
+        #td.turnOff(5)
     elif on and button == 4:
         time.sleep(0.5)
         td.turnOn(6)
